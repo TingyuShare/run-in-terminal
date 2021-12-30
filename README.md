@@ -1,0 +1,1 @@
+# vscode-send-to-shell
