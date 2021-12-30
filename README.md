@@ -1,1 +1,1 @@
-# vscode-send-to-shell
+# Send to Terminal (VSCode Extension)

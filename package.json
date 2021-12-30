@@ -1,0 +1,86 @@
+{
+	"name": "vscode-send-to-terminal",
+	"displayName": "Send to Terminal",
+	"description": "Send data from editor to terminal/shell as environment variables",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.63.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:vscode-send-to-terminal.send-selection",
+		"onCommand:vscode-send-to-terminal.send-active-file"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "vscode-send-to-terminal.send-selection",
+				"title": "Send to Terminal: Send selection",
+				"shortTitle": "Send selection to terminal",
+				"icon": "$(terminal)"
+			},
+			{
+				"command": "vscode-send-to-terminal.send-active-file",
+				"title": "Send to Terminal: Send active file",
+				"shortTitle": "Send active file to terminal",
+				"icon": "$(terminal)"
+			}
+		],
+		"configuration": [
+			{
+				"title": "",
+				"properties": {
+					"vscode-send-to-terminal.indexedSelectionVariableNameFormat": {
+						"type": "string",
+						"default": "VALUE_{0}",
+						"description": "Environment variable name format for indexed selections."
+					},
+					"vscode-send-to-terminal.singleOrMergedValueVariableName": {
+						"type": "string",
+						"default": "VALUE",
+						"description": "Environment variable name for single/merged content."
+					},
+					"vscode-send-to-terminal.showNewTerminal": {
+						"type": "boolean",
+						"default": true,
+						"description": "Always bring new terminal into display."
+					},
+					"vscode-send-to-terminal.typeInEcho": {
+						"type": "boolean",
+						"default": true,
+						"description": "Always type in the `echo` command."
+					},
+					"vscode-send-to-terminal.echoCommandFormat": {
+						"type": "string",
+						"default": "echo \"${0}\" | cat",
+						"description": "Echo command format."
+					}
+				}
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.4",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.63.0",
+		"@typescript-eslint/eslint-plugin": "^4.14.1",
+		"@typescript-eslint/parser": "^4.14.1",
+		"eslint": "^7.19.0",
+		"glob": "^7.1.6",
+		"mocha": "^8.2.1",
+		"typescript": "^4.1.3",
+		"vscode-test": "^1.5.0"
+	}
+}
