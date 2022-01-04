@@ -1,15 +1,45 @@
-import * as assert from 'assert';
+import * as assert from "assert";
+import * as vscode from "vscode";
 
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
-import * as vscode from 'vscode';
-// import * as myExtension from '../../extension';
+suite("Extension", () => {
+	vscode.window.showInformationMessage("Start all tests.");
 
-suite('Extension Test Suite', () => {
-    vscode.window.showInformationMessage('Start all tests.');
+	async function updateTypeInEcho(value: boolean) {
+		return vscode.workspace
+			.getConfiguration()
+			.update(
+				"vscode-send-to-terminal.typeInEcho",
+				value,
+				vscode.ConfigurationTarget.Global,
+			);
+	}
 
-    test('Sample test', () => {
-        assert.strictEqual(-1, [1, 2, 3].indexOf(5));
-        assert.strictEqual(-1, [1, 2, 3].indexOf(0));
-    });
+	async function updateSingleOrMergedValueVariableName(value: string) {
+		return vscode.workspace
+			.getConfiguration()
+			.update(
+				"vscode-send-to-terminal.singleOrMergedValueVariableName",
+				value,
+				vscode.ConfigurationTarget.Global,
+			);
+	}
+
+	test("sendActiveFileToTerminal()", async () => {
+		await updateTypeInEcho(false);
+		await updateSingleOrMergedValueVariableName("SOME_KEY_FOR_VALUE");
+		const doc = await vscode.workspace.openTextDocument({
+			content: "Hello World!",
+		});
+		await vscode.window.showTextDocument(doc);
+		const terminal: vscode.Terminal | undefined =
+			await vscode.commands.executeCommand(
+				"vscode-send-to-terminal.send-active-file",
+			);
+
+		assert(terminal);
+		const co = terminal.creationOptions;
+		assert("env" in co && co.env);
+		assert("SOME_KEY_FOR_VALUE" in co.env);
+		assert.strictEqual(co.env["SOME_KEY_FOR_VALUE"], "Hello World!");
+	});
 });
