@@ -57,7 +57,7 @@ function makeTerminal(
 
 function typeInEcho(terminal: vscode.Terminal, config: Configuration) {
 	terminal.sendText(
-		format(config.echoCommandFormat, config.singleOrMergedVariableName),
+		format(config.echoCommandFormat, config.singleOrMergedValueVariableName),
 		false,
 	);
 }
@@ -69,7 +69,7 @@ function makeEnv(data: TerminalData, config: Configuration): EnvData {
 		const k = format(formatString, i.toString());
 		result[k] = v;
 	}
-	result[config.singleOrMergedVariableName] = data.mergeTexts();
+	result[config.singleOrMergedValueVariableName] = data.mergeTexts();
 	return result;
 }
 
