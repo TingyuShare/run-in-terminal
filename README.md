@@ -1,4 +1,4 @@
-# Send to Terminal (VSCode Extension)
+# Send to Terminal (VS Code Extension)
 
 Send text selection(s) or entire active file as environment variables into a new shell/terminal. With the default configurations, the text sent is assigned to an environment variable named `$VALUE`.
 
