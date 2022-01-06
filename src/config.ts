@@ -11,8 +11,8 @@ export class Configuration {
 			"VALUE_{0}",
 		);
 	}
-	public get singleOrMergedVariableName(): string {
-		return this._config.get<string>("singleOrMergedVariableName", "VALUE");
+	public get singleOrMergedValueVariableName(): string {
+		return this._config.get<string>("singleOrMergedValueVariableName", "VALUE");
 	}
 	public get showNewTerminal(): boolean {
 		return this._config.get<boolean>("showNewTerminal", true);
