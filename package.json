@@ -2,6 +2,11 @@
 	"name": "vscode-send-to-terminal",
 	"displayName": "Send to Terminal",
 	"description": "Send data from editor to terminal/shell as environment variables",
+	"publisher": "babakks",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/babakks/vscode-send-to-terminal"
+	},
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.63.0"
