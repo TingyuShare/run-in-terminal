@@ -21,6 +21,6 @@ export class Configuration {
 		return this._config.get<boolean>("typeInEcho", true);
 	}
 	public get echoCommandFormat(): string {
-		return this._config.get<string>("echoCommandFormat", 'echo "${0}" | cat');
+		return this._config.get<string>("echoCommandFormat", 'echo -E "${0}" | cat');
 	}
 }
