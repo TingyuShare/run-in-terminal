@@ -72,7 +72,7 @@
 					},
 					"vscode-send-to-terminal.echoCommandFormat": {
 						"type": "string",
-						"default": "echo \"${0}\" | cat",
+						"default": "echo -E \"${0}\" | cat",
 						"description": "Echo command format."
 					}
 				}
