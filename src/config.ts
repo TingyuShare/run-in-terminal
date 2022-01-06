@@ -11,8 +11,8 @@ export class Configuration {
 			"VALUE_{0}",
 		);
 	}
-	public get singleOrMergedVariableName(): string {
-		return this._config.get<string>("singleOrMergedVariableName", "VALUE");
+	public get singleOrMergedValueVariableName(): string {
+		return this._config.get<string>("singleOrMergedValueVariableName", "VALUE");
 	}
 	public get showNewTerminal(): boolean {
 		return this._config.get<boolean>("showNewTerminal", true);
@@ -21,9 +21,6 @@ export class Configuration {
 		return this._config.get<boolean>("typeInEcho", true);
 	}
 	public get echoCommandFormat(): string {
-		return this._config.get<string>(
-			"echoCommandFormat",
-			'echo "${0}" | cat',
-		);
+		return this._config.get<string>("echoCommandFormat", 'echo "${0}" | cat');
 	}
 }

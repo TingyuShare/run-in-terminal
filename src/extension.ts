@@ -21,39 +21,43 @@ export function activate(context: vscode.ExtensionContext) {
 
 export default function deactivate() {}
 
-function sendActiveFileToTerminal() {
+function sendActiveFileToTerminal(): vscode.Terminal | undefined {
 	const text = vscode.window.activeTextEditor?.document.getText();
 	if (undefined === text) {
-		return;
+		return undefined;
 	}
-	makeTerminal(new TerminalData([text]));
+	return makeTerminal(new TerminalData([text]));
 }
 
-function sendSelectionToTerminal() {
+function sendSelectionToTerminal(): vscode.Terminal | undefined {
 	const ate = vscode.window.activeTextEditor;
 	const selections = vscode.window.activeTextEditor?.selections;
 	if (!ate || !selections) {
-		return;
+		return undefined;
 	}
 	const texts = selections.map((x) => ate.document.getText(x));
-	makeTerminal(new TerminalData(texts));
+	return makeTerminal(new TerminalData(texts));
 }
 
-function makeTerminal(data: TerminalData, config?: Configuration) {
+function makeTerminal(
+	data: TerminalData,
+	config?: Configuration,
+): vscode.Terminal {
 	const c = config || new Configuration();
 	const env = makeEnv(data, c);
-	const terminal = createTerminalWithEnv(env);
+	const result = createTerminalWithEnv(env);
 	if (c.typeInEcho) {
-		typeInEcho(terminal, c);
+		typeInEcho(result, c);
 	}
 	if (c.showNewTerminal) {
-		terminal.show();
+		result.show();
 	}
+	return result;
 }
 
 function typeInEcho(terminal: vscode.Terminal, config: Configuration) {
 	terminal.sendText(
-		format(config.echoCommandFormat, config.singleOrMergedVariableName),
+		format(config.echoCommandFormat, config.singleOrMergedValueVariableName),
 		false,
 	);
 }
@@ -65,7 +69,7 @@ function makeEnv(data: TerminalData, config: Configuration): EnvData {
 		const k = format(formatString, i.toString());
 		result[k] = v;
 	}
-	result[config.singleOrMergedVariableName] = data.mergeTexts();
+	result[config.singleOrMergedValueVariableName] = data.mergeTexts();
 	return result;
 }
 

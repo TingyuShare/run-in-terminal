@@ -1,8 +1,7 @@
 import * as assert from "assert";
-import * as vscode from "vscode";
 import { format } from "../../util";
 
-suite("Util Test Suite", () => {
+suite("Util", () => {
 	test("format", () => {
 		assert.strictEqual(format("Hello!"), "Hello!");
 		assert.strictEqual(format("Hello!", "John"), "Hello!");
