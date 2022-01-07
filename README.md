@@ -11,7 +11,7 @@ Send text selection(s) or entire active file as environment variables into a new
 3. Type in `Send to Terminal: Send selection` and press <kbd>Enter</kbd> or <kbd>Return</kbd>. A new terminal opens with the command template:
 
    ```sh
-   echo "$VALUE" | cat
+   echo -E "$VALUE" | cat
    ```
 
 4. Modify the command as you wish.
@@ -25,7 +25,7 @@ Send text selection(s) or entire active file as environment variables into a new
 3. Type in `Send to Terminal: Send active file` and press <kbd>Enter</kbd> or <kbd>Return</kbd>. A new terminal opens with the command template:
 
    ```sh
-   echo "$VALUE" | cat
+   echo -E "$VALUE" | cat
    ```
 
 4. Modify the command as you wish.
