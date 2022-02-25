@@ -7,7 +7,7 @@
 		"type": "git",
 		"url": "https://github.com/babakks/vscode-send-to-terminal"
 	},
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"engines": {
 		"vscode": "^1.63.0"
 	},
@@ -31,6 +31,7 @@
 		"onCommand:vscode-send-to-terminal.send-active-file"
 	],
 	"main": "./out/extension.js",
+    "icon": "images/icon.png",
 	"contributes": {
 		"commands": [
 			{
