@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
 import { format } from "./util";
-import { Configuration } from "./config";
 import { TerminalData } from "./model";
 
 type EnvData = { [key: string]: string };
@@ -8,12 +7,18 @@ type EnvData = { [key: string]: string };
 export function activate(context: vscode.ExtensionContext) {
 	const disposables = [
 		vscode.commands.registerCommand(
-			"vscode-send-to-terminal.send-selection",
+			"runInTerminal.select-selection",
 			sendSelectionToTerminal,
 		),
 		vscode.commands.registerCommand(
-			"vscode-send-to-terminal.send-active-file",
+			"runInTerminal.active-file",
 			sendActiveFileToTerminal,
+		),
+		vscode.commands.registerCommand(
+			"runInTerminal.whatisMyip",
+			() => {
+				return makeTerminal(new TerminalData(["curl cip.cc"]));
+			},
 		),
 	];
 	context.subscriptions.push(...disposables);
@@ -40,36 +45,28 @@ function sendSelectionToTerminal(): vscode.Terminal | undefined {
 }
 
 function makeTerminal(
-	data: TerminalData,
-	config?: Configuration,
+	data: TerminalData
 ): vscode.Terminal {
-	const c = config || new Configuration();
-	const env = makeEnv(data, c);
+	const env = makeEnv(data);
 	const result = createTerminalWithEnv(env);
-	if (c.typeInEcho) {
-		typeInEcho(result, c);
-	}
-	if (c.showNewTerminal) {
-		result.show();
-	}
+	typeInEcho(result, data);
+	result.show();
 	return result;
 }
 
-function typeInEcho(terminal: vscode.Terminal, config: Configuration) {
+function typeInEcho(terminal: vscode.Terminal, data: TerminalData) {
 	terminal.sendText(
-		format(config.echoCommandFormat, config.singleOrMergedValueVariableName),
+		data.mergeTexts(),
 		false,
 	);
 }
 
-function makeEnv(data: TerminalData, config: Configuration): EnvData {
+function makeEnv(data: TerminalData): EnvData {
 	const result: EnvData = {};
-	const formatString = config.indexedVariableNameFormat;
 	for (const [i, v] of data.texts.entries()) {
-		const k = format(formatString, i.toString());
+		const k = format('value', i.toString());
 		result[k] = v;
 	}
-	result[config.singleOrMergedValueVariableName] = data.mergeTexts();
 	return result;
 }
 

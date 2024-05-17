@@ -1,11 +1,11 @@
 {
-	"name": "vscode-send-to-terminal",
-	"displayName": "Send to Terminal",
-	"description": "Send data/text/selection from editor to terminal/shell as environment variables",
-	"publisher": "babakks",
+	"name": "run-in-terminal",
+	"displayName": "Run Script in Terminal",
+	"description": "run script in terminal",
+	"publisher": "tingyu",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/babakks/vscode-send-to-terminal"
+		"url": "https://github.com/TingyuShare/run-in-terminal"
 	},
 	"version": "0.0.8",
 	"engines": {
@@ -20,63 +20,29 @@
 		"selection",
 		"copy",
 		"send",
-		"environment variable",
 		"env",
 		"bash",
 		"zsh"
 	],
 	"markdown": "github",
 	"activationEvents": [
-		"onCommand:vscode-send-to-terminal.send-selection",
-		"onCommand:vscode-send-to-terminal.send-active-file"
+		"*"
 	],
 	"main": "./out/extension.js",
     "icon": "images/icon.png",
 	"contributes": {
 		"commands": [
 			{
-				"command": "vscode-send-to-terminal.send-selection",
-				"title": "Send to Terminal: Send selection",
-				"shortTitle": "Send selection to terminal",
-				"icon": "$(terminal)"
+				"command": "runInTerminal.select-selection",
+				"title": "RunInTerminal: Selected selection"
 			},
 			{
-				"command": "vscode-send-to-terminal.send-active-file",
-				"title": "Send to Terminal: Send active file",
-				"shortTitle": "Send active file to terminal",
-				"icon": "$(terminal)"
-			}
-		],
-		"configuration": [
+				"command": "runInTerminal.active-file",
+				"title": "RunInTerminal: Active file"
+			},
 			{
-				"title": "",
-				"properties": {
-					"vscode-send-to-terminal.indexedSelectionVariableNameFormat": {
-						"type": "string",
-						"default": "VALUE_{0}",
-						"description": "Environment variable name format for indexed selections."
-					},
-					"vscode-send-to-terminal.singleOrMergedValueVariableName": {
-						"type": "string",
-						"default": "VALUE",
-						"description": "Environment variable name for single/merged content."
-					},
-					"vscode-send-to-terminal.showNewTerminal": {
-						"type": "boolean",
-						"default": true,
-						"description": "Always bring new terminal into display."
-					},
-					"vscode-send-to-terminal.typeInEcho": {
-						"type": "boolean",
-						"default": true,
-						"description": "Always type in the `echo` command."
-					},
-					"vscode-send-to-terminal.echoCommandFormat": {
-						"type": "string",
-						"default": "echo -E \"${0}\" | cat",
-						"description": "Echo command format."
-					}
-				}
+				"command": "runInTerminal.whatisMyip",
+				"title": "RunInTerminal: WhatIsMyIP"
 			}
 		]
 	},

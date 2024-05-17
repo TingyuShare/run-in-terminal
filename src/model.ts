@@ -8,6 +8,6 @@ export class TerminalData {
 	}
 
 	public mergeTexts(): string {
-		return 0 === this.texts.length ? "" : this.texts.join(os.EOL);
+		return 0 === this.texts.length ? "" : this.texts.join(os.EOL) + os.EOL
 	}
 }
