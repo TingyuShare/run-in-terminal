@@ -1,13 +1,13 @@
 {
-	"name": "run-in-terminal",
+	"name": "seeyouinshell",
 	"displayName": "Run Script in Terminal",
 	"description": "run script in terminal",
-	"publisher": "tingyu",
+	"publisher": "tingyu-shell",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/TingyuShare/run-in-terminal"
 	},
-	"version": "0.0.8",
+	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.63.0"
 	},
