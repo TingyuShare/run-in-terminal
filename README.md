@@ -1,3 +1,9 @@
-forked from https://github.com/babakks/vscode-send-to-terminal. And made some changes for better personal use.
+## Run Script in Shell
+Send command to your default shell
 
-Please feel free to contribute by submitting PR or opening new issues on the origin repository.
+## Usage 
+- Selected section
+   right click or `ctrl+shift+p` with `RunInTerminal: Selected section`
+
+- Active file
+   right click or `ctrl+shift+p` with `RunInTerminal: Active file`
