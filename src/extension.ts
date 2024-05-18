@@ -14,11 +14,11 @@ export function activate(context: vscode.ExtensionContext) {
 			"runInTerminal.active-file",
 			sendActiveFileToTerminal,
 		),
-		vscode.commands.registerCommand(
-			"runInTerminal.whatisMyip",
-			() => {
-				return makeTerminal(new TerminalData(["curl cip.cc"]));
-			},
+		vscode.commands.registerTextEditorCommand('runInTerminal.select-selection',
+			sendSelectionToTerminal,
+		),
+		vscode.commands.registerTextEditorCommand('runInTerminal.active-file',
+		    sendActiveFileToTerminal,
 		),
 	];
 	context.subscriptions.push(...disposables);

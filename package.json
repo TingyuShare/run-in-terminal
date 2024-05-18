@@ -39,12 +39,21 @@
 			{
 				"command": "runInTerminal.active-file",
 				"title": "RunInTerminal: Active file"
-			},
-			{
-				"command": "runInTerminal.whatisMyip",
-				"title": "RunInTerminal: WhatIsMyIP"
 			}
-		]
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"command": "runInTerminal.select-selection",
+					"group": "navigation@1.31"
+				},
+				{
+					"command": "runInTerminal.active-file",
+					"group": "navigation@1.31"
+					
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
