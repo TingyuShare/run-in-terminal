@@ -24,6 +24,12 @@ You can run commands in two ways:
         *   `RunInTerminal: Selected selection`
         *   `RunInTerminal: Active file`
 
+## Demo
+
+The following animation demonstrates the extension's primary features: running the entire file content and running a selected piece of code in the VS Code integrated terminal.
+
+![Usage Demo](images/demo.gif)
+
 ## License
 
 [MIT](LICENSE)
