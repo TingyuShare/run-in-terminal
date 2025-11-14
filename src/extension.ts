@@ -71,6 +71,11 @@ function makeEnv(data: TerminalData): EnvData {
 }
 
 function createTerminalWithEnv(env: EnvData): vscode.Terminal {
+	const activeTerminal = vscode.window.activeTerminal;
+	if (activeTerminal) {
+		return activeTerminal;
+	}
+
 	const options: vscode.TerminalOptions = {
 		env: env,
 	};
