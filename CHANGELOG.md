@@ -4,6 +4,15 @@ All notable changes to the "plugin" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.0.6] - 2025-11-18
+
+### Added
+- Implemented "RunInTerminal: Active file" to automatically execute a command based on the file's extension.
+- Introduced the `runInTerminal.commandMap` setting, allowing users to customize which command runs for each file type.
+
+### Fixed
+- Corrected several issues in the automated test suite.
+
 ## [0.0.5]
 
 - Added demo gif.

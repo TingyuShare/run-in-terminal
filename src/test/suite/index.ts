@@ -27,11 +27,14 @@ export function run(): Promise<void> {
 						}
 					});
 				} catch (err) {
+					console.error("!!! CATCH BLOCK ERROR !!!");
 					console.error(err);
 					e(err);
 				}
 			})
 			.catch(err => {
+				console.error("!!! GLOB PROMISE CATCH BLOCK ERROR !!!");
+				console.error(err);
 				return e(err);
 			});
 	});

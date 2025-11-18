@@ -7,7 +7,7 @@
 		"type": "git",
 		"url": "https://github.com/TingyuShare/run-in-terminal"
 	},
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"engines": {
 		"vscode": "^1.63.0"
 	},
@@ -52,6 +52,27 @@
 					"group": "navigation@1.31"
 				}
 			]
+		},
+		"configuration": {
+			"title": "Run In Terminal",
+			"properties": {
+				"runInTerminal.commandMap": {
+					"type": "object",
+					"default": {
+						".py": "python",
+						".go": "go run",
+						".js": "node",
+						".ts": "ts-node",
+						".sh": "bash",
+						".rb": "ruby",
+						".php": "php",
+						".pl": "perl",
+						".r": "Rscript",
+						".ps1": "powershell -ExecutionPolicy Bypass -File"
+					},
+					"description": "A map of file extensions to shell commands to be executed. The file name will be appended to the command."
+				}
+			}
 		}
 	},
 	"scripts": {
@@ -72,6 +93,7 @@
 		"glob": "^11.0.3",
 		"mocha": "^8.2.1",
 		"typescript": "^5.9.3",
+		"vsce": "^2.15.0",
 		"vscode-test": "^1.5.0"
 	}
 }

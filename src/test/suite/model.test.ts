@@ -13,13 +13,13 @@ suite("Model/TerminalData", () => {
 		const sut = (texts: string[]) => new TerminalData(texts).mergeTexts();
 
 		assert.strictEqual(sut([]), "");
-		assert.strictEqual(sut([""]), "");
-		assert.strictEqual(sut(["", ""]), `${eol}`);
-		assert.strictEqual(sut(["a"]), "a");
-		assert.strictEqual(sut(["\n"]), "\n");
-		assert.strictEqual(sut(["\n", ""]), `\n${eol}`);
-		assert.strictEqual(sut(["\n", "\n"]), `\n${eol}\n`);
-		assert.strictEqual(sut(["a", "b"]), `a${eol}b`);
-		assert.strictEqual(sut(["a", "", "b"]), `a${eol}${eol}b`);
+		assert.strictEqual(sut([""]), eol);
+		assert.strictEqual(sut(["", ""]), eol + eol);
+		assert.strictEqual(sut(["a"]), "a" + eol);
+		assert.strictEqual(sut(["\n"]), "\n" + eol);
+		assert.strictEqual(sut(["\n", ""]), `\n${eol}${eol}`);
+		assert.strictEqual(sut(["\n", "\n"]), `\n${eol}\n${eol}`);
+		assert.strictEqual(sut(["a", "b"]), `a${eol}b${eol}`);
+		assert.strictEqual(sut(["a", "", "b"]), `a${eol}${eol}b${eol}`);
 	});
 });

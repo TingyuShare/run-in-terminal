@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import * as path from "path";
 import { format } from "./util";
 import { TerminalData } from "./model";
 
@@ -26,12 +27,63 @@ export function activate(context: vscode.ExtensionContext) {
 
 export default function deactivate() {}
 
-function sendActiveFileToTerminal(): vscode.Terminal | undefined {
-	const text = vscode.window.activeTextEditor?.document.getText();
-	if (undefined === text) {
-		return undefined;
+/**
+ * Gets the command to execute based on the file extension.
+ * @param fileName The full name of the file.
+ * @returns The command string to execute, or undefined if no command is found.
+ */
+function getCommandForFile(fileName: string): string | undefined {
+    const extension = path.extname(fileName).toLowerCase();
+
+    // Get the command map from user settings.
+    const config = vscode.workspace.getConfiguration('runInTerminal');
+    const commandMap = config.get<{[key: string]: string}>('commandMap');
+
+    if (!commandMap) {
+        // This should not happen if defaults are set in package.json, but as a fallback.
+        vscode.window.showWarningMessage("Run In Terminal: commandMap not found in settings.");
+        return undefined;
+    }
+
+    return commandMap[extension];
+}
+
+async function sendActiveFileToTerminal(): Promise<void> {
+	const editor = vscode.window.activeTextEditor;
+	if (!editor) {
+		vscode.window.showInformationMessage("No active editor found.");
+		return;
 	}
-	return makeTerminal(new TerminalData([text]));
+
+	const document = editor.document;
+	const filePath = document.uri.fsPath;
+
+	if (document.isUntitled) {
+		vscode.window.showInformationMessage("Please save the file first.");
+		return;
+	}
+
+    const command = getCommandForFile(filePath);
+    const extension = path.extname(filePath);
+
+    if (!command) {
+        vscode.window.showInformationMessage(`No command configured for "${extension}" files. You can add it in the 'runInTerminal.commandMap' setting.`);
+        return;
+    }
+
+	const fileDirectory = path.dirname(filePath);
+	const fileName = path.basename(filePath);
+
+    let terminal = vscode.window.activeTerminal;
+    if (!terminal) {
+        terminal = vscode.window.createTerminal("Run In Terminal");
+    }
+    terminal.show();
+
+    // Normalize the path to ensure it's correct for the OS, and wrap in quotes.
+    terminal.sendText(`cd "${path.normalize(fileDirectory)}"`);
+    // Wrap the filename in quotes to handle spaces.
+    terminal.sendText(`${command} "${fileName}"`);
 }
 
 function sendSelectionToTerminal(): vscode.Terminal | undefined {
